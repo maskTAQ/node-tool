@@ -23,7 +23,7 @@ class Demo{
 class Demo{
     render() {
         return (
-            <View className={`${styles.testClasss} ${styles.testClass-demo}`}>
+            <View className={`${styles.testClasss} ${styles['testClass-demo}']`}>
                 <Text className={styles.testClass}>hello masktaq</Text>
             </View>
         )
@@ -48,7 +48,7 @@ class Demo{
 class Demo{
     render() {
         return (
-            <View style={[styles.testClasss ,styles.testClass-demo ]}>
+            <View style={[styles.testClasss ,styles['testClass-demo']]}>
                 <Text style={styles.testClass}>hello masktaq</Text>
             </View>
         )

@@ -1,8 +1,9 @@
 class Demo{
     render() {
         return (
-            <View className={`${styles.testClasss} ${styles.testClass-demo}`}>
-                <Text className={styles.testClass}>hello masktaq</Text>
+            <View style={[styles.testClasss,styles['testClass-democc']]}>
+                <Text style={styles.testClass}>hello masktaq</Text>
+                <View style={[styles.ca,styles['adad-ca']]}></View>
             </View>
         )
     }

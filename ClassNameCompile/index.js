@@ -41,26 +41,37 @@ class ClassNameCompile {
     createClassName(classNames) {
         const {jsx, stylesName} = config;
         const classNamesArr = classNames.split(/\s+/);
-
         const className = jsx === 'react'
             ? 'className'
             : 'style';
 
+        //处理class只有一个的情况;
         if (classNamesArr.length === 1) {
             return `${className}={${stylesName}.${classNamesArr[0]}}`
         } else {
+            const jsxTypeHandleMap = {
+                react() {
+                    let result = classNamesArr.map(className => {
+                        if (className.includes('-')) {
+                            return `\${${stylesName}['${className}']}`
+                        }
+                        return `\${${stylesName}.${className}}`
+                    });
+                    return `${className}={\`${result.join(' ')}\`}`
+                },
+                'react-native' () {
+                    let result = classNamesArr.map(className => {
+                        if (className.includes('-')) {
+                            return `${stylesName}['${className}']`
+                        }
+                        return `${stylesName}.${className}`
+                    });
+                    return `${className}={[${result}]}`
+                }
+            };
 
-            if (jsx === 'react') {
-                let result = classNamesArr.map(className => {
-                    return `\${${stylesName}.${className}` + '}'
-                });
-                return `${className}={\`${result.join(' ')}\`}`
-            } else {
-                let result = classNamesArr.map(className => {
-                    return `${stylesName}.${className} `
-                });
-                return `${className}={[${result}]}`
-            }
+           return jsxTypeHandleMap[jsx];
+
         }
     }
     replace(data) {

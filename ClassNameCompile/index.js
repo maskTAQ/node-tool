@@ -47,6 +47,9 @@ class ClassNameCompile {
 
         //处理class只有一个的情况;
         if (classNamesArr.length === 1) {
+            if (classNamesArr[0].includes('-')) {
+                return `${className}={${stylesName}['${classNamesArr[0]}']}`
+            }
             return `${className}={${stylesName}.${classNamesArr[0]}}`
         } else {
             const jsxTypeHandleMap = {
